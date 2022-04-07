@@ -6,10 +6,11 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
-import java.util.ArrayList;
 import java.util.EventObject;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
@@ -27,8 +28,8 @@ public abstract class LocationSource implements LocationSourceListener {
     private Location mCurrentLocation;
     private Location mLastKnownLocation;
     private Throwable mThrowable;
-    private final List<LocationChangedListener> mLocationChangedListeners = new ArrayList<>();
-    private final List<StatusChangedListener> mStatusChangedListeners = new ArrayList<>();
+    private final List<LocationChangedListener> mLocationChangedListeners = new CopyOnWriteArrayList<>();
+    private final List<StatusChangedListener> mStatusChangedListeners = new CopyOnWriteArrayList<>();
 
     protected LocationSource() {
         this.mStartStatus = new AtomicReference<>(Status.STOPPED);
@@ -154,7 +155,7 @@ public abstract class LocationSource implements LocationSourceListener {
             }
         }
     }
-
+    @Nullable
     public Location getLocation() {
         if (mCurrentLocation != null) {
             return mCurrentLocation;
@@ -162,6 +163,7 @@ public abstract class LocationSource implements LocationSourceListener {
         return getCacheLocation(getCurrentLocationKey());
     }
 
+    @Nullable
     @Override
     public Location getLastKnownLocation() {
         if (mLastKnownLocation != null) {
@@ -196,9 +198,14 @@ public abstract class LocationSource implements LocationSourceListener {
         return "lastKnownLocationSource-" + getCoordType();
     }
 
-    protected abstract void saveCacheLocation(String key, Location location);
+    protected void saveCacheLocation(@NonNull String key, Location location){
 
-    protected abstract Location getCacheLocation(String key);
+    }
+
+    @Nullable
+    protected  Location getCacheLocation(@NonNull String key){
+        return null;
+    }
 
     public abstract String getCoordType();
 

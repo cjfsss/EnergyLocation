@@ -15,6 +15,7 @@ import android.os.Handler;
 import android.os.Parcel;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -238,6 +239,7 @@ public abstract class LocationSourceAndroidData extends LocationSource {
         this.unregisterSensorManager();
     }
 
+    @Nullable
     @Override
     public LocationSourceAndroidData.LocationData getLocation() {
         return (LocationSourceAndroidData.LocationData) super.getLocation();
