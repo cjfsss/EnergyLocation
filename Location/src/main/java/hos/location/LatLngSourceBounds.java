@@ -112,20 +112,20 @@ public class LatLngSourceBounds {
     }
 
     public static final class Builder {
-        private double a;
-        private double b;
-        private double c;
-        private double d;
-        private boolean e = true;
+        private double southLat;
+        private double northLat;
+        private double southLng;
+        private double northLng;
+        private boolean isInclude = true;
 
         public Builder() {
         }
 
         @NonNull
         public LatLngSourceBounds build() {
-            LatLngSource var1 = new LatLngSource(this.b, this.d);
-            LatLngSource var2 = new LatLngSource(this.a, this.c);
-            return new LatLngSourceBounds(var1, var2);
+            LatLngSource north = new LatLngSource(this.northLat, this.northLng);
+            LatLngSource south = new LatLngSource(this.southLat, this.southLng);
+            return new LatLngSourceBounds(north, south);
         }
 
         @NonNull
@@ -133,13 +133,13 @@ public class LatLngSourceBounds {
             if (var1 == null) {
                 return this;
             } else {
-                if (this.e) {
-                    this.e = false;
-                    this.b = this.a = var1.getLatitude();
-                    this.d = this.c = var1.getLongitude();
+                if (this.isInclude) {
+                    this.isInclude = false;
+                    this.northLat = this.southLat = var1.getLatitude();
+                    this.northLng = this.southLng = var1.getLongitude();
                 }
 
-                this.a(var1);
+                this.handle(var1);
                 return this;
             }
         }
@@ -147,15 +147,15 @@ public class LatLngSourceBounds {
         @NonNull
         public Builder include(@Nullable List<LatLngSource> var1) {
             if (var1 != null && var1.size() != 0) {
-                if (var1.get(0) != null && this.e) {
-                    this.e = false;
-                    this.b = this.a = ((LatLngSource) var1.get(0)).getLatitude();
-                    this.d = this.c = ((LatLngSource) var1.get(0)).getLongitude();
+                if (var1.get(0) != null && this.isInclude) {
+                    this.isInclude = false;
+                    this.northLat = this.southLat = ((LatLngSource) var1.get(0)).getLatitude();
+                    this.northLng = this.southLng = ((LatLngSource) var1.get(0)).getLongitude();
                 }
                 Iterator<LatLngSource> var2 = var1.iterator();
                 while (var2.hasNext()) {
                     LatLngSource var3 = var2.next();
-                    this.a(var3);
+                    this.handle(var3);
                 }
                 return this;
             } else {
@@ -163,21 +163,21 @@ public class LatLngSourceBounds {
             }
         }
 
-        private void a(@Nullable LatLngSource var1) {
+        private void handle(@Nullable LatLngSource var1) {
             if (var1 != null) {
-                double var2 = var1.getLatitude();
-                double var4 = var1.getLongitude();
-                if (var2 < this.a) {
-                    this.a = var2;
+                double lat = var1.getLatitude();
+                double lng = var1.getLongitude();
+                if (lat < this.southLat) {
+                    this.southLat = lat;
                 }
-                if (var2 > this.b) {
-                    this.b = var2;
+                if (lat > this.northLat) {
+                    this.northLat = lat;
                 }
-                if (var4 < this.c) {
-                    this.c = var4;
+                if (lng < this.southLng) {
+                    this.southLng = lng;
                 }
-                if (var4 > this.d) {
-                    this.d = var4;
+                if (lng > this.northLng) {
+                    this.northLng = lng;
                 }
             }
         }
