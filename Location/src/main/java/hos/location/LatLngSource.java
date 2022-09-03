@@ -3,7 +3,7 @@ package hos.location;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import androidx.annotation.NonNull;
+
 
 /**
  * <p>Title: LatLngSource </p>
@@ -43,13 +43,13 @@ public class LatLngSource implements Parcelable {
         this.longitude = longitude;
     }
 
-    @NonNull
+    
     public LatLngSource clone() {
         return new LatLngSource(this.latitude, this.longitude);
     }
 
     @Override
-    @NonNull
+    
     public String toString() {
         return "LatLngSource{" +
                 "latitude=" + latitude +

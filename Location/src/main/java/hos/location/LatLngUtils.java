@@ -2,7 +2,7 @@ package hos.location;
 
 import android.text.TextUtils;
 
-import androidx.annotation.NonNull;
+
 
 
 /**
@@ -30,10 +30,10 @@ public class LatLngUtils {
      * @param pointStr 经度或者纬度
      * @return 经度或者纬度 只有前6位
      */
-    @NonNull
+    
     public static String pointIntercept(String pointStr) {
         if (TextUtils.isEmpty(pointStr) || pointStr.contains("NaN")) {
-            return "";
+            return "0";
         }
         if (pointStr.contains(".")) {
             String[] pointArr = pointStr.split("\\.");
@@ -125,7 +125,7 @@ public class LatLngUtils {
      *
      * @return
      */
-    @NonNull
+    
     public static LatLngSource getCenter(LatLngSource northeast, LatLngSource southwest) {
         double lat = (northeast.getLatitude() - southwest.getLatitude()) / 2.0D + southwest.getLatitude();
         double lng = (northeast.getLongitude() - southwest.getLongitude()) / 2.0D + southwest.getLongitude();

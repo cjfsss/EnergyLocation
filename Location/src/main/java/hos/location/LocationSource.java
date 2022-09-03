@@ -5,8 +5,8 @@ import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+
+
 
 import java.util.EventObject;
 import java.util.List;
@@ -124,7 +124,7 @@ public abstract class LocationSource implements LocationSourceListener {
      *
      * @param location 点位
      */
-    public final void updateLocation(final @NonNull Location location) {
+    public final void updateLocation(final  Location location) {
         if (location != null) {
             Location lastKnownLocation = getLocation();
             if (lastKnownLocation != null) {
@@ -155,7 +155,7 @@ public abstract class LocationSource implements LocationSourceListener {
             }
         }
     }
-    @Nullable
+    
     public Location getLocation() {
         if (mCurrentLocation != null) {
             return mCurrentLocation;
@@ -163,7 +163,7 @@ public abstract class LocationSource implements LocationSourceListener {
         return getCacheLocation(getCurrentLocationKey());
     }
 
-    @Nullable
+    
     @Override
     public Location getLastKnownLocation() {
         if (mLastKnownLocation != null) {
@@ -198,12 +198,12 @@ public abstract class LocationSource implements LocationSourceListener {
         return "lastKnownLocationSource-" + getCoordType();
     }
 
-    protected void saveCacheLocation(@NonNull String key, Location location){
+    protected void saveCacheLocation( String key, Location location){
 
     }
 
-    @Nullable
-    protected  Location getCacheLocation(@NonNull String key){
+    
+    protected  Location getCacheLocation( String key){
         return null;
     }
 
@@ -452,7 +452,7 @@ public abstract class LocationSource implements LocationSourceListener {
         }
 
         @Override
-        @NonNull
+        
         public String toString() {
             return "Location{" +
                     "latLngSource=" + latLngSource.toString() + ", altitude=" + altitude +

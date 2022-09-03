@@ -4,10 +4,7 @@ import android.content.Context;
 import android.location.Criteria;
 import android.os.Parcelable;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
-import hos.util.cache.StorageFile;
+import hos.cache.StorageFile;
 
 
 /**
@@ -34,24 +31,33 @@ public class LocationSourceAndroidDataCache extends LocationSourceAndroidData {
     }
 
     @Override
-    protected void saveCacheLocation(@NonNull String key, Location location) {
-        StorageFile.saveCache(key, (Parcelable) location);
-        if (location instanceof LocationData) {
-            StorageFile.saveCache(key + "androidLocation", (Parcelable) ((LocationData) location).getLocation());
+    protected void saveCacheLocation( String key, Location location) {
+        try {
+            StorageFile.saveCache(key, (Parcelable) location);
+            if (location instanceof LocationData) {
+                StorageFile.saveCache(key + "androidLocation", (Parcelable) ((LocationData) location).getLocation());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
-    @Nullable
+    
     @Override
-    protected Location getCacheLocation(@NonNull String key) {
-        Location location = StorageFile.getCache(key, Location.CREATOR);
-        if (location == null) {
+    protected Location getCacheLocation( String key) {
+        try {
+            Location location = StorageFile.getData(key, Location.CREATOR);
+            if (location == null) {
+                return null;
+            }
+            android.location.Location androidLocation = StorageFile.getData(key + "androidLocation", android.location.Location.CREATOR);
+            if (androidLocation == null) {
+                return new LocationData(location);
+            }
+            return new LocationData(location, androidLocation);
+        } catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
-        android.location.Location androidLocation = StorageFile.getCache(key + "androidLocation", android.location.Location.CREATOR);
-        if (androidLocation == null) {
-            return new LocationData(location);
-        }
-        return new LocationData(location, androidLocation);
     }
 }

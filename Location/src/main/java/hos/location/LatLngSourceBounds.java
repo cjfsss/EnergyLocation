@@ -3,8 +3,8 @@ package hos.location;
 import android.os.Parcel;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+
+
 
 import java.util.Iterator;
 import java.util.List;
@@ -23,7 +23,7 @@ public class LatLngSourceBounds {
     public final LatLngSource northeast;
     public final LatLngSource southwest;
 
-    LatLngSourceBounds(@NonNull LatLngSource var1, @NonNull LatLngSource var2) {
+    LatLngSourceBounds( LatLngSource var1,  LatLngSource var2) {
         this.northeast = var1;
         this.southwest = var2;
     }
@@ -33,7 +33,7 @@ public class LatLngSourceBounds {
         this.southwest = (LatLngSource) var1.readParcelable(LatLngSource.class.getClassLoader());
     }
 
-    public boolean contains(@Nullable LatLngSource var1) {
+    public boolean contains( LatLngSource var1) {
         if (var1 == null) {
             return false;
         } else {
@@ -47,7 +47,7 @@ public class LatLngSourceBounds {
         }
     }
 
-    public boolean contains(@Nullable LatLngSourceBounds var1) {
+    public boolean contains( LatLngSourceBounds var1) {
         boolean var2 = false;
         if (var1 == null) {
             return var2;
@@ -59,7 +59,7 @@ public class LatLngSourceBounds {
         }
     }
 
-    public boolean intersects(@Nullable LatLngSourceBounds var1) {
+    public boolean intersects( LatLngSourceBounds var1) {
         if (var1 == null) {
             return false;
         } else if (this.northeast != null && this.southwest != null) {
@@ -70,12 +70,12 @@ public class LatLngSourceBounds {
         }
     }
 
-    @NonNull
+    
     public LatLngSource getCenter() {
         return LatLngUtils.getCenter(northeast, southwest);
     }
 
-    private boolean a(@Nullable LatLngSourceBounds var1) {
+    private boolean a( LatLngSourceBounds var1) {
         if (var1 != null && var1.northeast != null && var1.southwest != null) {
             double var2 = var1.northeast.getLongitude() + var1.southwest.getLongitude() - this.northeast.getLongitude() - this.southwest.getLongitude();
             double var4 = this.northeast.getLongitude() - this.southwest.getLongitude() + var1.northeast.getLongitude() - this.southwest.getLongitude();
@@ -96,7 +96,7 @@ public class LatLngSourceBounds {
         var1.writeParcelable(this.southwest, var2);
     }
 
-    @NonNull
+    
     public String toString() {
         StringBuilder var1 = new StringBuilder();
         var1.append("southwest: ");
@@ -121,15 +121,15 @@ public class LatLngSourceBounds {
         public Builder() {
         }
 
-        @NonNull
+        
         public LatLngSourceBounds build() {
             LatLngSource north = new LatLngSource(this.northLat, this.northLng);
             LatLngSource south = new LatLngSource(this.southLat, this.southLng);
             return new LatLngSourceBounds(north, south);
         }
 
-        @NonNull
-        public Builder include(@Nullable LatLngSource var1) {
+        
+        public Builder include( LatLngSource var1) {
             if (var1 == null) {
                 return this;
             } else {
@@ -144,8 +144,8 @@ public class LatLngSourceBounds {
             }
         }
 
-        @NonNull
-        public Builder include(@Nullable List<LatLngSource> var1) {
+        
+        public Builder include( List<LatLngSource> var1) {
             if (var1 != null && var1.size() != 0) {
                 if (var1.get(0) != null && this.isInclude) {
                     this.isInclude = false;
@@ -163,7 +163,7 @@ public class LatLngSourceBounds {
             }
         }
 
-        private void handle(@Nullable LatLngSource var1) {
+        private void handle( LatLngSource var1) {
             if (var1 != null) {
                 double lat = var1.getLatitude();
                 double lng = var1.getLongitude();

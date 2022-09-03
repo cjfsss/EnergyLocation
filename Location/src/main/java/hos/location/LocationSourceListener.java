@@ -2,7 +2,7 @@ package hos.location;
 
 import android.app.Activity;
 
-import androidx.annotation.NonNull;
+
 
 /**
  * <p>Title: LocationSourceListener </p>
@@ -36,7 +36,7 @@ public interface LocationSourceListener {
      */
     boolean isLatLngRepeated();
 
-    void updateLocation(final @NonNull LocationSource.Location location);
+    void updateLocation(final  LocationSource.Location location);
 
     void notifyLocation();
 
